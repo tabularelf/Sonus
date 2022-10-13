@@ -44,5 +44,3 @@ function __SonusSystem() {
 }
 
 __SonusSystem();
-
-show_debug_message(__SonusSystem());

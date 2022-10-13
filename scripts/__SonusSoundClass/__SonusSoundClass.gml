@@ -14,29 +14,43 @@ function __SonusSoundClass(_name, _snd) constructor {
 	__falloffFactor = 0;
 	__filePath = "";
 	__asyncLoading = false;
+	__asyncFilePath = "";
+	__isReady = true;
     
     static Play = function(_offset = 0, _loops = false) {
+		if (!__isReady) return -1;
+		
 		if (__isExternal) && (!__isLoaded) {
 			Load();	
 		}
+		
 		var _pitch = is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch;
         return audio_play_sound(__sndIndex, __priority, _loops, __gain, _offset, _pitch, __listenerMask);
     }
 	
 	static PlayAt = function(_x, _y, _z, _offset = 0, _loops = false, _falloffRef = __falloffRef, _falloffMax = __falloffMax, _falloffFactor = __falloffFactor) {
+		if (!__isReady) return -1;
+		
 		if (__isExternal) && (!__isLoaded) {
 			Load();	
 		}
+
 		var _pitch = is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch;
 		return audio_play_sound_at(__sndIndex, _x, _y, _z, _falloffRef, _falloffMax, _falloffFactor, _loops, __priority, __gain, _offset, _pitch, __listenerMask);
     }
 	
 	static GetIndex = function() {
 		if (__isExternal) {
-			// Handle loading state	
+			if (!__isLoaded) {
+				Load();	
+			}
 		}
 		
 		return __sndIndex;
+	}
+	
+	static IsLoaded = function() {
+		return __isLoaded();
 	}
 	
 	static __HandleUnload = function() {
@@ -106,5 +120,9 @@ function __SonusSoundClass(_name, _snd) constructor {
 	
 	static __IsPlaying = function() {
 		return audio_is_playing(__sndIndex);
+	}
+	
+	static toString = function() {
+		return __name;	
 	}
 }

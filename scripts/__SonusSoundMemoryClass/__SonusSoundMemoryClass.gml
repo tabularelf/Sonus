@@ -14,11 +14,20 @@ function __SonusSoundMemoryClass(_name, _snd) : __SonusSoundClass(_name, _snd) c
 	}
 	
 	static __HandleLoad = function() {
+		var _filePath = (__asyncLoading) ? __asyncFilePath : __filePath;
+		if (!file_exists(_filePath)) {
+			__SonusTrace("File " + _filePath + " doesn't exist!");
+			exit;	
+		}
+		
 		if (__compression) {
 			__buffer = buffer_decompress(__compressedBuffer);
 			buffer_delete(__compressedBuffer);
 		} else {
-			__buffer = buffer_load(__filePath);
+			var _buff = buffer_load(_filePath);
+			__buffer = buffer_create(buffer_get_size(_buff), buffer_fixed, 1);
+			buffer_copy(_buff, 0, buffer_get_size(_buff), __buffer, 0);
+			buffer_delete(_buff);
 		}
 		
 		__sndIndex = __SonusBufferToAudio(__buffer);
