@@ -10,7 +10,10 @@ function __SonusSystem() {
 		_inst = {
 			__soundsMap: {},
 			__soundsList: [],
-			__soundsGroup: {}
+			__soundsGroup: {},
+			__timer: time_source_create(time_source_global, 1, time_source_units_frames, __SonusTick, [], -1),
+			__soundsUnloadQueue: [],
+			__soundsAsyncQueue: [],
 		}
 		
 		var _i = 0;
@@ -34,6 +37,8 @@ function __SonusSystem() {
 			
 			++_i;
 		}
+		
+		time_source_start(_inst.__timer);
 	}
 	return _inst;
 }

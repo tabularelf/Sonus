@@ -1,3 +1,3 @@
-SonusSoundAdd("ui_menu_popup_message_04.ogg");
-snd = SonusSoundGet("ui_menu_popup_message_02").SetPitchRange(.2, 1);
+snd = SonusSoundAdd("ui_menu_popup_message_04.ogg").Load().Unload().SetPitchRange(.2, 1);
+snd.Play();	
 show_debug_message(snd);

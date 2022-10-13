@@ -1,3 +1,3 @@
 function SonusSoundIsPlaying(_snd) {
-	return _snd.__isPlaying();
+	return _snd.__IsPlaying();
 }
