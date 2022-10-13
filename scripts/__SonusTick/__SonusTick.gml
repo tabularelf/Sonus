@@ -20,7 +20,7 @@ function __SonusTick() {
 	}
 	
 	// Handle Async
-	_i = 0;
+	/*_i = 0;
 	var _queue = _inst.__soundsAsyncQueue;
 	repeat(array_length(_queue)) {
 		var _snd = _queue[_i];
@@ -29,5 +29,5 @@ function __SonusTick() {
 			array_delete(_queue, _i, 1);
 			--_i;
 		}
-	}
+	}*/
 }

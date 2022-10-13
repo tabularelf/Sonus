@@ -18,7 +18,9 @@ function __SonusSoundClass(_name, _snd) constructor {
 	__isReady = true;
     
     static Play = function(_offset = 0, _loops = false) {
-		if (!__isReady) return -1;
+		if (!__isReady) {
+			return -1;
+		}	
 		
 		if (__isExternal) && (!__isLoaded) {
 			Load();	
