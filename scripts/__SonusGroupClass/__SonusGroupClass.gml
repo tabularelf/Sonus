@@ -1,4 +1,4 @@
-function __SonusGroupClass() constructor {
+function __SonusGroupClass(_name) constructor {
 	__soundsMap = {};
 	__soundsList = [];
 	__name = _name;
