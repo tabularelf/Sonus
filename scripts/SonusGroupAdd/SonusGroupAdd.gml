@@ -3,4 +3,5 @@ function SonusGroupAdd(_name) {
 	if (!SonusGroupExists(_name)) {
 		_inst.__soundsGroup[$ _name] = new __SonusGroupClass(_name);
 	}
+	return _inst.__soundsGroup[$ _name];
 }

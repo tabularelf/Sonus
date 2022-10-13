@@ -4,5 +4,5 @@ function SonusGroupAddSubGroup(_groupName, _subGroup) {
 		_inst.__soundsGroup[$ _subGroup] = new __SonusGroupClass(_subGroup);
 	}
 	
-	array_push(_inst.__soundsGroup[$ _groupName].__subGroupList, _subGroup);
+	array_push(_inst.__soundsGroup[$ _groupName].__subGroupList, _inst.__soundsGroup[$ _subGroup]);
 }
