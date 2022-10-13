@@ -3,14 +3,20 @@
   "resourceVersion": "1.6",
   "name": "Sonus",
   "resources": [
+    {"id":{"name":"SonusGroupAddSound","path":"scripts/SonusGroupAddSound/SonusGroupAddSound.yy",},"order":1,},
     {"id":{"name":"__SonusSoundClass","path":"scripts/__SonusSoundClass/__SonusSoundClass.yy",},"order":0,},
     {"id":{"name":"obj_test","path":"objects/obj_test/obj_test.yy",},"order":5,},
+    {"id":{"name":"SonusGroupExists","path":"scripts/SonusGroupExists/SonusGroupExists.yy",},"order":2,},
     {"id":{"name":"__SonusSoundMemoryClass","path":"scripts/__SonusSoundMemoryClass/__SonusSoundMemoryClass.yy",},"order":2,},
     {"id":{"name":"SonusSoundGet","path":"scripts/SonusSoundGet/SonusSoundGet.yy",},"order":0,},
+    {"id":{"name":"SonusGroupAdd","path":"scripts/SonusGroupAdd/SonusGroupAdd.yy",},"order":0,},
     {"id":{"name":"ui_menu_popup_message_02","path":"sounds/ui_menu_popup_message_02/ui_menu_popup_message_02.yy",},"order":4,},
     {"id":{"name":"__SonusSoundStreamClass","path":"scripts/__SonusSoundStreamClass/__SonusSoundStreamClass.yy",},"order":1,},
-    {"id":{"name":"ui_menu_popup_message_04","path":"sounds/ui_menu_popup_message_04/ui_menu_popup_message_04.yy",},"order":3,},
+    {"id":{"name":"SonusSoundIsPlaying","path":"scripts/SonusSoundIsPlaying/SonusSoundIsPlaying.yy",},"order":1,},
+    {"id":{"name":"__SonusAddEntry","path":"scripts/__SonusAddEntry/__SonusAddEntry.yy",},"order":2,},
     {"id":{"name":"__SonusSystem","path":"scripts/__SonusSystem/__SonusSystem.yy",},"order":1,},
+    {"id":{"name":"__SonusGroupClass","path":"scripts/__SonusGroupClass/__SonusGroupClass.yy",},"order":3,},
+    {"id":{"name":"SonusSoundAdd","path":"scripts/SonusSoundAdd/SonusSoundAdd.yy",},"order":2,},
     {"id":{"name":"rm_test","path":"rooms/rm_test/rm_test.yy",},"order":1,},
   ],
   "Options": [
@@ -46,7 +52,9 @@
   "TextureGroups": [
     {"resourceType":"GMTextureGroup","resourceVersion":"1.3","name":"Default","isScaled":true,"compressFormat":"bz2","autocrop":true,"border":2,"mipsToGenerate":0,"groupParent":null,"targets":-1,},
   ],
-  "IncludedFiles": [],
+  "IncludedFiles": [
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"ui_menu_popup_message_04.ogg","CopyToMask":-1,"filePath":"datafiles",},
+  ],
   "MetaData": {
     "IDEVersion": "2022.8.1.37",
   },

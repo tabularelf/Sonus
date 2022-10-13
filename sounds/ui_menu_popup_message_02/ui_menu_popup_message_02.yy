@@ -20,4 +20,7 @@
     "name": "Sonus",
     "path": "Sonus.yyp",
   },
+  "tags": [
+    "SonusGroup ui_popup",
+  ],
 }
