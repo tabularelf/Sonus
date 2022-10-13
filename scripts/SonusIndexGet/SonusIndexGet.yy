@@ -5,7 +5,7 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Sound",
-    "path": "folders/Sonus/Sound.yy",
+    "name": "Index",
+    "path": "folders/Sonus/Index.yy",
   },
 }

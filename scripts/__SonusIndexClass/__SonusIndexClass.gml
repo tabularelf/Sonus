@@ -26,8 +26,11 @@ function __SonusIndexClass(_name, _snd) constructor {
 			Load();	
 		}
 		
-		var _pitch = is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch;
-        return audio_play_sound(__sndIndex, __priority, _loops, __gain, _offset, _pitch, __listenerMask);
+		var _pitch = (is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch) * (!is_undefined(__group) ? 
+		(is_array(__group.__pitch) ? random_range(__group.__pitch[0], __group.__pitch[1]) : __group.__pitch) : 1);
+		
+        var _gain = __gain * (!is_undefined(__group) ? __group.__gain : 1);
+		return audio_play_sound(__sndIndex, __priority, _loops, _gain, _offset, _pitch, __listenerMask);
     }
 	
 	static PlayAt = function(_x, _y, _z, _offset = 0, _loops = false, _falloffRef = __falloffRef, _falloffMax = __falloffMax, _falloffFactor = __falloffFactor) {
@@ -37,8 +40,11 @@ function __SonusIndexClass(_name, _snd) constructor {
 			Load();	
 		}
 
-		var _pitch = is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch;
-		return audio_play_sound_at(__sndIndex, _x, _y, _z, _falloffRef, _falloffMax, _falloffFactor, _loops, __priority, __gain, _offset, _pitch, __listenerMask);
+		var _pitch = (is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch) * (!is_undefined(__group) ? 
+		(is_array(__group.__pitch) ? random_range(__group.__pitch[0], __group.__pitch[1]) : __group.__pitch) : 1);
+		
+        var _gain = __gain * (!is_undefined(__group) ? __group.__gain : 1);
+		return audio_play_sound_at(__sndIndex, _x, _y, _z, _falloffRef, _falloffMax, _falloffFactor, _loops, __priority, _gain, _offset, _pitch, __listenerMask);
     }
 	
 	static GetIndex = function() {

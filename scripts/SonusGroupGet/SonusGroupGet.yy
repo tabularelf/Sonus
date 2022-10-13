@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "SonusIndexIsPlaying",
+  "name": "SonusGroupGet",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Index",
-    "path": "folders/Sonus/Index.yy",
+    "name": "Group",
+    "path": "folders/Sonus/Group.yy",
   },
 }
