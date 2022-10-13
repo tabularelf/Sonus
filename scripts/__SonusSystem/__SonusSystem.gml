@@ -1,4 +1,4 @@
-enum SonusSoundType {
+enum SonusIndexType {
 	STREAMED,
 	MEMORY,
 	UNKNOWN
@@ -19,7 +19,7 @@ function __SonusSystem() {
 		var _i = 0;
 		while(audio_exists(_i)) {
 			var _name = audio_get_name(_i);
-			var _snd = (audio_get_type(_i) == 1) ? new __SonusSoundStreamClass(_name, _i) : new __SonusSoundMemoryClass(_name, _i);
+			var _snd = (audio_get_type(_i) == 1) ? new __SonusIndexStreamClass(_name, _i) : new __SonusIndexMemoryClass(_name, _i);
 			__SonusAddEntry(_snd);
 			var _tags = asset_get_tags(_name, asset_sound);
 			var _j = 0;

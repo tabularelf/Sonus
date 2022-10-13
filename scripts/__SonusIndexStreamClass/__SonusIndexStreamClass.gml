@@ -1,5 +1,5 @@
-function __SonusSoundStreamClass(_name, _snd) : __SonusSoundClass(_name, _snd) constructor {
-	__type = SonusSoundType.STREAMED;
+function __SonusIndexStreamClass(_name, _snd) : __SonusIndexClass(_name, _snd) constructor {
+	__type = SonusIndexType.STREAMED;
 	 
 	static __HandleUnload = function() {
 		audio_destroy_stream(__sndIndex);

@@ -1,4 +1,4 @@
-function __SonusSoundClass(_name, _snd) constructor {
+function __SonusIndexClass(_name, _snd) constructor {
     __gain = 1;
     __pitch = 1;
     __priority = 0;
@@ -7,7 +7,7 @@ function __SonusSoundClass(_name, _snd) constructor {
     __isExternal = false;
 	__isLoaded = false;
     __group = undefined;
-    __type = SonusSoundType.UNKNOWN;
+    __type = SonusIndexType.UNKNOWN;
 	__name = _name;
 	__falloffMax = 0;
 	__falloffRef = 0;

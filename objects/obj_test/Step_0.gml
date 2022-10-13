@@ -1,3 +1,3 @@
-if (!SonusSoundIsPlaying(snd)) {
+if (!SonusIndexIsPlaying(snd)) {
 	snd.Play();	
 }

@@ -1,5 +1,5 @@
-function __SonusSoundMemoryClass(_name, _snd) : __SonusSoundClass(_name, _snd) constructor {
-	__type = SonusSoundType.MEMORY;
+function __SonusIndexMemoryClass(_name, _snd) : __SonusIndexClass(_name, _snd) constructor {
+	__type = SonusIndexType.MEMORY;
 	__compressedBuffer = -1;
 	__buffer = -1;
 	__compression = false;

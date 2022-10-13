@@ -1,15 +1,15 @@
-function SonusSoundAdd(_filePath, _preload = false) {
+function SonusIndexAdd(_filePath, _preload = false) {
 	static _inst = __SonusSystem();
 	var _name = filename_name(_filePath);
 	_name = string_delete(_name, string_pos(".", _name), 4);
 	var _snd = undefined;
 	switch(filename_ext(_filePath)) {
 		case ".wav":
-			_snd = new __SonusSoundMemoryClass(_name, -1);
+			_snd = new __SonusIndexMemoryClass(_name, -1);
 		break;
 		
 		case ".ogg":
-			_snd = new __SonusSoundStreamClass(_name, -1);
+			_snd = new __SonusIndexStreamClass(_name, -1);
 		break;
 	}
 	

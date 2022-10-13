@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "SonusSoundAdd",
+  "name": "SonusIndexIsPlaying",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

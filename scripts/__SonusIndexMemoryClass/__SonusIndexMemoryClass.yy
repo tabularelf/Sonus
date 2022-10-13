@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "SonusSoundIsPlaying",
+  "name": "__SonusIndexMemoryClass",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Sound",
-    "path": "folders/Sonus/Sound.yy",
+    "name": "Classes",
+    "path": "folders/Sonus/System/Classes.yy",
   },
 }

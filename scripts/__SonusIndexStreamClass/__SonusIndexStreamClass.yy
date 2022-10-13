@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "SonusSoundGet",
+  "name": "__SonusIndexStreamClass",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Sound",
-    "path": "folders/Sonus/Sound.yy",
+    "name": "Classes",
+    "path": "folders/Sonus/System/Classes.yy",
   },
 }
