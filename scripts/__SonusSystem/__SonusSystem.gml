@@ -14,6 +14,7 @@ function __SonusSystem() {
 			__timer: time_source_create(time_source_global, 1, time_source_units_frames, __SonusTick, [], -1),
 			__soundsUnloadQueue: [],
 			__soundsAsyncQueue: [],
+			__soundsHTTPQueue: []
 		}
 		
 		var _i = 0;

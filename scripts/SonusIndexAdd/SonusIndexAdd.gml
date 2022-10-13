@@ -1,4 +1,4 @@
-function SonusIndexAdd(_filePath, _preload = false) {
+function SonusIndexAdd(_filePath, _preload = false, _async = false) {
 	static _inst = __SonusSystem();
 	var _name = filename_name(_filePath);
 	_name = string_delete(_name, string_pos(".", _name), 4);
@@ -17,11 +17,24 @@ function SonusIndexAdd(_filePath, _preload = false) {
 	_snd.__filePath = _filePath;
 	
 	if (string_count("http://", _filePath) > 0) || (string_count("https://", _filePath) > 0) {
-		_snd.__asyncLoading = true;
-		_snd.__asyncFilePath = game_save_id + "\\.temp\\" + filename_name(_filePath);
-		if (!file_exists(_snd.__asyncFilePath)) {
+		var _newFilePath = game_save_id + "\\.temp\\" + filename_name(_filePath);
+		_snd.__httpFilePath = _filePath;
+		if (_snd.__type == SonusIndexType.MEMORY) {
+			_snd.__asyncLoading = true;
+		}
+		_snd.__asyncByHTTP = true;
+		_snd.__filePath = _newFilePath;
+		if (!file_exists(_snd.__filePath)) {
 			_snd.__isReady = false;
-			array_push(_inst.__soundsAsyncQueue, new __SonusAsyncClass(_snd));
+			array_push(_inst.__soundsHTTPQueue, new __SonusHTTPClass(_snd));
+		}
+	}
+	
+	if (_async) {
+		if (!_snd.__asyncByHTTP) {
+			if (_snd.__type == SonusIndexType.MEMORY) {
+				_snd.__asyncLoading = true;
+			}
 		}
 	}
 	

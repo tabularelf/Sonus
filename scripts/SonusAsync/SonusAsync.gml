@@ -4,7 +4,7 @@ function SonusAsync() {
 	var _status = async_load[? "status"];
 	var _httpCode = async_load[? "http_status"];
 	
-	var _queue = _inst.__soundsAsyncQueue;
+	var _queue = _inst.__soundsHTTPQueue;
 	var _i = 0;
 	repeat(array_length(_queue)) {
 		var _entry = _queue[_i];
@@ -14,7 +14,7 @@ function SonusAsync() {
 					_entry.__snd.__isReady = true;
 				} else {
 					__SonusTrace("File download failed from " + _entry.__snd.__filePath + ". Got HTTP Status Code " + string(_httpCode));	
-					file_delete(_entry.__snd.__asyncFilePath);
+					file_delete(_entry.__snd.__filePath);
 				}
 				
 				array_delete(_queue, _i, 1);

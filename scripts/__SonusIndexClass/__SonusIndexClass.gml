@@ -13,17 +13,18 @@ function __SonusIndexClass(_name, _snd) constructor {
 	__falloffRef = 0;
 	__falloffFactor = 0;
 	__filePath = "";
+	__httpFilePath = "";
 	__asyncLoading = false;
-	__asyncFilePath = "";
+	__asyncByHTTP = false;
 	__isReady = true;
     
     static Play = function(_offset = 0, _loops = false) {
-		if (!__isReady) {
-			return -1;
-		}	
-		
 		if (__isExternal) && (!__isLoaded) {
 			Load();	
+		}
+		
+		if (!__isReady) {
+			return -1;
 		}
 		
 		var _pitch = (is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch) * (!is_undefined(__group) ? 
@@ -70,8 +71,8 @@ function __SonusIndexClass(_name, _snd) constructor {
 	}
 	
 	static Unload = function(_force = false) {
-		if (!__isExternal) {
-			__SonusError(__name + " is not an external sound!", true);
+		if (!__isExternal) || (!__isReady) || (!__isLoaded) {
+			//__SonusError(__name + " is not an external sound!", true);
 			return self;
 		}
 		
@@ -87,8 +88,8 @@ function __SonusIndexClass(_name, _snd) constructor {
 	}
 	
 	static Load = function() {
-		if (!__isExternal) {
-			__SonusError(__name + " is not an external sound!", true);
+		if (!__isExternal) || (__isLoaded) {
+			//__SonusError(__name + " is not an external sound!", true);
 			return self;
 		}
 		

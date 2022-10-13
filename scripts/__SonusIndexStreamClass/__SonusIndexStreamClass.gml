@@ -6,11 +6,13 @@ function __SonusIndexStreamClass(_name, _snd) : __SonusIndexClass(_name, _snd) c
 	}
 	
 	static __HandleLoad = function() {
-		var _filePath = (__asyncLoading) ? __asyncFilePath : __filePath;
+		var _filePath = __filePath;
 		if (!file_exists(_filePath)) {
 			__SonusTrace("File " + _filePath + " doesn't exist!");
 			exit;	
 		}
 		__sndIndex = audio_create_stream(_filePath);
+		__isReady = true;
+		__isLoaded = true;
 	}
 }
