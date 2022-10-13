@@ -16,11 +16,17 @@ function __SonusSoundClass(_name, _snd) constructor {
 	__asyncLoading = false;
     
     static Play = function(_offset = 0, _loops = false) {
+		if (__isExternal) && (!__isLoaded) {
+			Load();	
+		}
 		var _pitch = is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch;
         return audio_play_sound(__sndIndex, __priority, _loops, __gain, _offset, _pitch, __listenerMask);
     }
 	
-	static PlayAt = function(_x, _y, _z, _falloffRef = __falloffRef, _falloffMax = __falloffMax, _falloffFactor = __falloffFactor, ___offset = 0, _loops = false) {
+	static PlayAt = function(_x, _y, _z, _offset = 0, _loops = false, _falloffRef = __falloffRef, _falloffMax = __falloffMax, _falloffFactor = __falloffFactor) {
+		if (__isExternal) && (!__isLoaded) {
+			Load();	
+		}
 		var _pitch = is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch;
 		return audio_play_sound_at(__sndIndex, _x, _y, _z, _falloffRef, _falloffMax, _falloffFactor, _loops, __priority, __gain, _offset, _pitch, __listenerMask);
     }
