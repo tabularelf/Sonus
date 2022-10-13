@@ -11,7 +11,7 @@
     {"id":{"name":"SonusGroupGet","path":"scripts/SonusGroupGet/SonusGroupGet.yy",},"order":4,},
     {"id":{"name":"SonusGroupExists","path":"scripts/SonusGroupExists/SonusGroupExists.yy",},"order":2,},
     {"id":{"name":"__SonusIndexMemoryClass","path":"scripts/__SonusIndexMemoryClass/__SonusIndexMemoryClass.yy",},"order":2,},
-    {"id":{"name":"SonusAsync","path":"scripts/SonusAsync/SonusAsync.yy",},"order":0,},
+    {"id":{"name":"SonusHTTP","path":"scripts/SonusHTTP/SonusHTTP.yy",},"order":0,},
     {"id":{"name":"__SonusHTTPClass","path":"scripts/__SonusHTTPClass/__SonusHTTPClass.yy",},"order":4,},
     {"id":{"name":"SonusGroupAddSubGroup","path":"scripts/SonusGroupAddSubGroup/SonusGroupAddSubGroup.yy",},"order":3,},
     {"id":{"name":"SonusIndexGetRandom","path":"scripts/SonusIndexGetRandom/SonusIndexGetRandom.yy",},"order":3,},
