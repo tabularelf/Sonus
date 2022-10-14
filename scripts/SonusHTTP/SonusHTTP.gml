@@ -1,4 +1,4 @@
-function SonusAsync() {
+function SonusHTTP() {
 	static _inst = __SonusSystem();
 	var _id = async_load[? "id"];
 	var _status = async_load[? "status"];
