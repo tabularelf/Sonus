@@ -1,6 +1,6 @@
 function SonusIndexGetRandom(_groupName) {
 	static _inst = __SonusSystem();
-	var _group = _inst.__soundsGroup[$ _groupName];
+	var _group = (is_struct(_groupName)) ? _groupName : _inst.__soundsGroup[$ _groupName];
 	var _len = array_length(_group.__soundsList);
 	if (_len == 0) {
 		return undefined;

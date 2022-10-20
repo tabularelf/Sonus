@@ -39,7 +39,7 @@ function __SonusBufferToAudio(_buff) {
 				default: _bits_per_sample = undefined; break;
 			}
 			
-			if (_bits_per_sample == undefined) {
+			if (is_undefined(_bits_per_sample)) {
 				//__audioExtTrace("Invalid bits per sample. It can only support signed 8 or 16 bit.");
 				return -1;
 			}

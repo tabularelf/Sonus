@@ -1,9 +1,10 @@
-if (!SonusGroupIsPlaying("ui_popup")) {
-	snd.Play();	
+if (!SonusGroupIsPlaying(group)) {
+	snd.Play();		
 	snd.Unload();
-	snd = SonusIndexGetRandom("ui_popup");
+	snd = SonusIndexGetRandom(group);
 }
 
 if (keyboard_check_released(vk_space)) {
-	audio_stop_all();	
+	audio_stop_all();
+	SonusClearPool();
 }

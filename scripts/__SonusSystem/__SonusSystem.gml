@@ -11,11 +11,21 @@ function __SonusSystem() {
 			__soundsMap: {},
 			__soundsList: [],
 			__soundsGroup: {},
-			__timer: time_source_create(time_source_global, 1, time_source_units_frames, __SonusTick, [], -1),
+			__timerAsync: undefined,
+			__timerAudioInsts: undefined,
 			__soundsUnloadQueue: [],
 			__soundsAsyncQueue: [],
-			__soundsHTTPQueue: []
+			__soundsHTTPQueue: [],
+			__channelNum: 128,
+			__soundsPlayingList: ds_list_create(),
+			__soundsUnusedList: ds_list_create()
 		}
+		
+		_inst.__timerAsync = time_source_create(time_source_global, 1, time_source_units_frames, __SonusTick, [], -1);
+		_inst.__timerAudioInsts = time_source_create(time_source_global, __SONUS_PLAYING_CLEANUP_TIME, time_source_units_frames, __SonusTickAudioInsts, [], -1);
+		
+		time_source_start(_inst.__timerAsync);
+		time_source_start(_inst.__timerAudioInsts);
 		
 		var _i = 0;
 		while(audio_exists(_i)) {
@@ -39,7 +49,9 @@ function __SonusSystem() {
 			++_i;
 		}
 		
-		time_source_start(_inst.__timer);
+		if (__SONUS_AUTO_PREFILL_POOL) {
+			SonusPrefillPool(__SONUS_AUTO_PREFILL_POOL_VALUE);	
+		}
 	}
 	return _inst;
 }

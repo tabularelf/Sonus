@@ -7,21 +7,21 @@ function __SonusTick() {
 		if (!_snd.__isLoaded) {
 			array_delete(_queue, _i, 1);
 			--_i;
-			continue;
 		}
 		
-		if (!audio_is_playing(_snd.__sndIndex)) {
+		if (!audio_is_playing(_snd.__sndIndex)) && (_snd.__isLoaded) {
 			_snd.__HandleUnload();
 			_snd.__isLoaded = false;
+			_snd.__currentSoundInsts = 0;
 			array_delete(_queue, _i, 1);
 			--_i;
-			continue;
 		}
+		++_i;
 	}
 	
 	// Handle Async
 	_i = 0;
-	var _queue = _inst.__soundsAsyncQueue;
+	_queue = _inst.__soundsAsyncQueue;
 	repeat(array_length(_queue)) {
 		var _entry = _queue[_i];
 		if (buffer_get_size(_entry.__buffer) > 1) {
@@ -34,7 +34,7 @@ function __SonusTick() {
 		} else {
 			__SonusError("File wasn't loaded!", true);
 			array_delete(_queue, _i, 1);
-			buffer_delete(_snd.__buffer);
+			buffer_delete(_entry._snd.__buffer);
 			--_i;
 		}	
 	}

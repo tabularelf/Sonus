@@ -17,29 +17,28 @@ function __SonusIndexClass(_name, _snd) constructor {
 	__asyncLoading = false;
 	__asyncByHTTP = false;
 	__isReady = true;
+	__currentSoundInsts = 0;
     
     static Play = function(_offset = 0, _loops = false) {
-		if (__isExternal) && (!__isLoaded) {
+		if (__isExternal) && (!IsAvailable()) {
 			Load();	
 		}
 		
-		if (!__isReady) {
-			return -1;
-		}
+		if (!__isReady) return undefined;
 		
 		var _pitch = (is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch) * (!is_undefined(__group) ? 
 		(is_array(__group.__pitch) ? random_range(__group.__pitch[0], __group.__pitch[1]) : __group.__pitch) : 1);
 		
         var _gain = __gain * (!is_undefined(__group) ? __group.__gain : 1);
-		return audio_play_sound(__sndIndex, __priority, _loops, _gain, _offset, _pitch, __listenerMask);
+		return __SonusAudioInst(audio_play_sound(__sndIndex, __priority, _loops, _gain, _offset, _pitch, __listenerMask));
     }
 	
 	static PlayAt = function(_x, _y, _z, _offset = 0, _loops = false, _falloffRef = __falloffRef, _falloffMax = __falloffMax, _falloffFactor = __falloffFactor) {
-		if (!__isReady) return -1;
-		
-		if (__isExternal) && (!__isLoaded) {
+		if (__isExternal) && (!IsAvailable()) {
 			Load();	
 		}
+		
+		if (!__isReady) return undefined;
 
 		var _pitch = (is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch) * (!is_undefined(__group) ? 
 		(is_array(__group.__pitch) ? random_range(__group.__pitch[0], __group.__pitch[1]) : __group.__pitch) : 1);
@@ -58,8 +57,12 @@ function __SonusIndexClass(_name, _snd) constructor {
 		return __sndIndex;
 	}
 	
+	static GetSoundCount = function() {
+		return __currentSoundInsts;
+	}
+	
 	static IsLoaded = function() {
-		return __isLoaded();
+		return __isLoaded;
 	}
 	
 	static __HandleUnload = function() {
@@ -80,6 +83,7 @@ function __SonusIndexClass(_name, _snd) constructor {
 			audio_stop_sound(__sndIndex);
 			__HandleUnload();
 			__isLoaded = false;
+			__currentSoundInsts = 0;
 		} else {
 			var _inst = __SonusSystem();
 			array_push(_inst.__soundsUnloadQueue, self);
@@ -99,21 +103,31 @@ function __SonusIndexClass(_name, _snd) constructor {
     
     static Stop = function() {
         audio_stop_sound(__sndIndex);
+		__currentSoundInsts = 0;
         return self;
     }
     
-    static SetGain = function(_num) {
+    static SetGain = function(_num, _time = 0) {
         __gain = _num;    
+		if (__isLoaded) {
+			audio_sound_gain(__sndIndex, _num, _time);	
+		}
         return self;
     }
     
     static SetPitch = function(_num) {
         __pitch = _num;    
+		if (__isLoaded) {
+			audio_sound_pitch(__sndIndex, _num);	
+		}
         return self;
     }
 	
 	static SetPitchRange = function(_num1, _num2) {
         __pitch = [_num1, _num2];    
+		if (__isLoaded) {
+			audio_sound_pitch(__sndIndex, random_range(_num1, _num2));	
+		}
         return self;
     }
 	
@@ -129,6 +143,10 @@ function __SonusIndexClass(_name, _snd) constructor {
 	
 	static __IsPlaying = function() {
 		return audio_is_playing(__sndIndex);
+	}
+	
+	static IsAvailable = function() {
+		return (__isLoaded) && (__isReady);	
 	}
 	
 	static toString = function() {

@@ -1,6 +1,6 @@
 function SonusGroupIsPlaying(_name) {
 	static _inst = __SonusSystem();
-	var _group = _inst.__soundsGroup[$ _name];
+	var _group = (is_struct(_name)) ? _name : _inst.__soundsGroup[$ _name];
 	var _i = 0;
 	var _array = _group.__soundsList;
 	repeat(array_length(_array)) {

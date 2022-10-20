@@ -1,6 +1,7 @@
 randomize();
-snd = SonusIndexAdd("fanfare60.wav", false, true);
-SonusGroupAddSound(snd, "ui_popup");
+show_debug_overlay(true);
+//snd = SonusIndexAdd("fanfare60.wav", false, true);
+//SonusGroupAddSound(snd, "ui_popup");
 snd = SonusIndexAdd("ui_menu_popup_message_04.ogg");
 SonusGroupAddSound(snd, "ui_popup");
 snd = SonusIndexAdd("ui_menu_popup_message_022.wav");
