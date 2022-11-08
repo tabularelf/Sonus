@@ -55,5 +55,4 @@ function __SonusSystem() {
 	}
 	return _inst;
 }
-
 __SonusSystem();

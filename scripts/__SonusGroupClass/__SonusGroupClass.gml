@@ -2,6 +2,7 @@ function __SonusGroupClass(_name) constructor {
 	__soundsMap = {};
 	__soundsList = [];
 	__subGroupList = [];
+	__currentPlayingSoundsList = [];
 	__name = _name;
 	__gain = 1;
 	__pitch = 1;
@@ -11,6 +12,17 @@ function __SonusGroupClass(_name) constructor {
 		var _i = 0;
 		repeat(array_length(__subGroupList)) {
 			__subGroupList[_i].SetGain(_num);
+			++_i;
+		}
+		
+		_i = 0;
+		repeat(array_length(__currentPlayingSoundsList)) {
+			if (!audio_is_playing(__currentPlayingSoundsList[_i].__sndIndex)) {
+				array_delete(__currentPlayingSoundsList, _i, 1);
+				--_i;
+			} else {
+				__currentPlayingSoundsList[_i].SetGain(_num);
+			}
 			++_i;
 		}
 		return self;	

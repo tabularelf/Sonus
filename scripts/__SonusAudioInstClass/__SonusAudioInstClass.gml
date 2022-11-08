@@ -1,17 +1,18 @@
-function __SonusAudioInstClass(_snd, _index = other) constructor {
+function __SonusAudioInstClass(_snd, _index) constructor {
 	static _inst = __SonusSystem();
-	__sndIndex = _snd;
-	__gain = audio_sound_get_gain(_snd);
-	__pitch = audio_sound_get_pitch(_snd);
-	__listenerMask = audio_sound_get_listener_mask(_snd);
-	__parent = _index;
+	Rebind(_snd, _index);
 	
-	static Rebind = function(_snd, _index = other) {
+	static Rebind = function(_snd, _index) {
 		__sndIndex = _snd;
 		__gain = audio_sound_get_gain(_snd);
 		__pitch = audio_sound_get_pitch(_snd);
 		__listenerMask = audio_sound_get_listener_mask(_snd);
 		__parent = _index;	
+		if (!is_undefined(_index)) {
+			if (!is_undefined(_index.__group)) {
+				array_push(_index.__group.__currentPlayingSoundsList, self);	
+			}
+		}
 		return self;
 	}
 	
