@@ -59,10 +59,11 @@ function __SonusGroupClass(_name) constructor {
 	}
 	
 	static RemoveEntry = function(_snd) {
-		variable_struct_remove(__soundsMap, _snd.__name);
+		var _sndIndex = is_string(_snd) ? __soundsMap[$ _snd] : _snd;
+		variable_struct_remove(__soundsMap, _sndIndex.__name);
 		var _i = 0;
 		repeat(array_length(__soundsList)) {
-			if (__soundsList[_i] == _snd) {
+			if (__soundsList[_i] == _sndIndex) {
 				array_delete(__soundsList, _i, 1);
 				break;	
 			}
