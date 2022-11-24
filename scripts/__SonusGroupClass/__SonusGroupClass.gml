@@ -1,4 +1,5 @@
 function __SonusGroupClass(_name) constructor {
+	static _inst = __SonusSystem();
 	__soundsMap = {};
 	__soundsList = [];
 	__subGroupList = [];
@@ -35,6 +36,17 @@ function __SonusGroupClass(_name) constructor {
 			__subGroupList[_i].SetPitch(_num);
 			++_i;
 		}
+		
+		_i = 0;
+		repeat(array_length(__currentPlayingSoundsList)) {
+			if (!audio_is_playing(__currentPlayingSoundsList[_i].__sndIndex)) {
+				array_delete(__currentPlayingSoundsList, _i, 1);
+				--_i;
+			} else {
+				__currentPlayingSoundsList[_i].SetPitch(_num);
+			}
+			++_i;
+		}
 		return self;	
 	}
 	
@@ -45,16 +57,28 @@ function __SonusGroupClass(_name) constructor {
 			__subGroupList[_i].SetPitchRange(_min, _max);
 			++_i;
 		}
+		
+		_i = 0;
+		repeat(array_length(__currentPlayingSoundsList)) {
+			if (!audio_is_playing(__currentPlayingSoundsList[_i].__sndIndex)) {
+				array_delete(__currentPlayingSoundsList, _i, 1);
+				--_i;
+			} else {
+				__currentPlayingSoundsList[_i].SetPitchRange(_min, _max);
+			}
+			++_i;
+		}
 		return self;	
 	}
 	
 	static AddEntry = function(_snd) {
-		__soundsMap[$ _snd.__name] = _snd;
-		array_push(__soundsList, _snd);
-		if (!is_undefined(_snd.__group)) {
-			_snd.__group.RemoveEntry(_snd);	
+		var _sndIndex = is_string(_snd) ? _inst.__soundsMap[$ _snd] : _snd;
+		__soundsMap[$ _sndIndex.__name] = _sndIndex;
+		array_push(__soundsList, _sndIndex);
+		if (!is_undefined(_sndIndex.__group)) {
+			_sndIndex.__group.RemoveEntry(_sndIndex);	
 		}
-		_snd.__group = self;
+		_sndIndex.__group = self;
 		return self;
 	}
 	

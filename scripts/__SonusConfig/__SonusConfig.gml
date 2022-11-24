@@ -23,7 +23,7 @@
 #macro __SONUS_MAX_TIME_CLEANUP_MS 10000
 
 /*
-	Sets audion_channel_num() for you.
+	Sets audio_channel_num() for you.
 */
 
 #macro __SONUS_DEFAULT_MAX_CHANNEL_AUDIO_INSTS 128

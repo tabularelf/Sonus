@@ -39,12 +39,12 @@ function __SonusIndexClass(_name, _snd) constructor {
 		}
 		
 		if (!__isReady) return undefined;
-
+		
 		var _pitch = (is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch) * (!is_undefined(__group) ? 
 		(is_array(__group.__pitch) ? random_range(__group.__pitch[0], __group.__pitch[1]) : __group.__pitch) : 1);
 		
         var _gain = __gain * (!is_undefined(__group) ? __group.__gain : 1);
-		return audio_play_sound_at(__sndIndex, _x, _y, _z, _falloffRef, _falloffMax, _falloffFactor, _loops, __priority, _gain, _offset, _pitch, __listenerMask);
+		return __SonusAudioInst(audio_play_sound_at(__sndIndex, _x, _y, _z, _falloffRef, _falloffMax, _falloffFactor, _loops, __priority, _gain, _offset, _pitch, __listenerMask));
     }
 	
 	static GetIndex = function() {

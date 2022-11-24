@@ -4,6 +4,7 @@
   "name": "Sonus",
   "resources": [
     {"id":{"name":"__SonusBufferToAudio","path":"scripts/__SonusBufferToAudio/__SonusBufferToAudio.yy",},"order":3,},
+    {"id":{"name":"SonusEmitter","path":"scripts/SonusEmitter/SonusEmitter.yy",},"order":9,},
     {"id":{"name":"__SonusAudioInst","path":"scripts/__SonusAudioInst/__SonusAudioInst.yy",},"order":8,},
     {"id":{"name":"SonusGetPoolCount","path":"scripts/SonusGetPoolCount/SonusGetPoolCount.yy",},"order":5,},
     {"id":{"name":"SonusGroupAddSound","path":"scripts/SonusGroupAddSound/SonusGroupAddSound.yy",},"order":1,},
@@ -14,6 +15,7 @@
     {"id":{"name":"SonusGroupGet","path":"scripts/SonusGroupGet/SonusGroupGet.yy",},"order":4,},
     {"id":{"name":"SonusGroupExists","path":"scripts/SonusGroupExists/SonusGroupExists.yy",},"order":2,},
     {"id":{"name":"__SonusIndexMemoryClass","path":"scripts/__SonusIndexMemoryClass/__SonusIndexMemoryClass.yy",},"order":2,},
+    {"id":{"name":"__SonusEmitterClass","path":"scripts/__SonusEmitterClass/__SonusEmitterClass.yy",},"order":7,},
     {"id":{"name":"SonusHTTP","path":"scripts/SonusHTTP/SonusHTTP.yy",},"order":0,},
     {"id":{"name":"__SonusHTTPClass","path":"scripts/__SonusHTTPClass/__SonusHTTPClass.yy",},"order":4,},
     {"id":{"name":"__SonusTickAudioInsts","path":"scripts/__SonusTickAudioInsts/__SonusTickAudioInsts.yy",},"order":7,},
@@ -39,6 +41,7 @@
     {"id":{"name":"SonusIndexAdd","path":"scripts/SonusIndexAdd/SonusIndexAdd.yy",},"order":2,},
     {"id":{"name":"SonusPrefillPool","path":"scripts/SonusPrefillPool/SonusPrefillPool.yy",},"order":2,},
     {"id":{"name":"SonusIsSonusIndex","path":"scripts/SonusIsSonusIndex/SonusIsSonusIndex.yy",},"order":7,},
+    {"id":{"name":"obj_test_emitter","path":"objects/obj_test_emitter/obj_test_emitter.yy",},"order":6,},
     {"id":{"name":"SonusClearPool","path":"scripts/SonusClearPool/SonusClearPool.yy",},"order":1,},
     {"id":{"name":"rm_test","path":"rooms/rm_test/rm_test.yy",},"order":1,},
   ],
@@ -82,6 +85,6 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"Fanfare60.wav","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "MetaData": {
-    "IDEVersion": "2022.9.1.51",
+    "IDEVersion": "2022.1100.0.242",
   },
 }

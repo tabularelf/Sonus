@@ -38,4 +38,21 @@ function __SonusTick() {
 			--_i;
 		}	
 	}
+	
+	// Handle garbage collection
+	
+	// Emitter
+	_i = 0;
+	_queue = _inst.__emitterList;
+	repeat(ds_list_size(_queue)) {
+		var _emitter = _queue[| _i];
+		if (!weak_ref_alive(_emitter[0])) {
+			if (audio_emitter_exists(_emitter[1])) {
+				audio_emitter_free(_emitter[1]);
+			}
+			ds_list_delete(_queue, _i);
+			--_i;
+		}
+		++_i;
+	}
 }
