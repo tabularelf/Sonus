@@ -2,10 +2,10 @@
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
   "name": "SonusIsSonusIndex",
-  "isDnD": false,
   "isCompatibility": false,
+  "isDnD": false,
   "parent": {
-    "name": "Group",
-    "path": "folders/Sonus/Group.yy",
+    "name": "General",
+    "path": "folders/Sonus/General.yy",
   },
 }

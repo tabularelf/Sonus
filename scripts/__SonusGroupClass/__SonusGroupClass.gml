@@ -8,6 +8,25 @@ function __SonusGroupClass(_name) constructor {
 	__gain = 1;
 	__pitch = 1;
 	
+	static IsPlaying = function() {
+		return __SonusGroupIsPlaying(self);	
+	}
+	
+	static Stop = function() {
+		var _i = 0;
+		repeat(array_length(__soundsList)) {
+			__soundsList[_i].Stop();
+			++_i;
+		}
+		
+		_i = 0;
+		repeat(array_length(__subGroupList)) {
+			__subGroupList[_i].Stop();
+			++_i;
+		}
+		return self;
+	}
+	
 	static SetGain = function(_num) {
 		__gain = _num;
 		var _i = 0;

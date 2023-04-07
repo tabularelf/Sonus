@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "SonusIndexIsPlaying",
+  "name": "__SonusGroupIsPlaying",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Index",
-    "path": "folders/Sonus/Index.yy",
+    "name": "System",
+    "path": "folders/Sonus/System.yy",
   },
 }

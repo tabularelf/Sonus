@@ -10,7 +10,3 @@ group = SonusGroupGet("ui_popup").SetPitchRange(1,2);
 snd = SonusIndexGetRandom("ui_popup");
 emitter = SonusEmitter(0,0,0,200, 400, 1000);
 audio_falloff_set_model(audio_falloff_exponent_distance);
-
-repeat(1000) {
-	SonusEmitter(0,0,0,200, 400, 1000);	
-}

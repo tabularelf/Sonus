@@ -1,4 +1,4 @@
-if (!SonusGroupIsPlaying(group)) {
+if (!SonusIsPlaying(group)) {
 	snd.Play();		
 	snd.Unload();
 	snd = SonusIndexGetRandom(group);

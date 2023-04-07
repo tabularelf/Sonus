@@ -8,3 +8,4 @@ snd = SonusIndexAdd("ui_menu_popup_message_022.wav");
 SonusGroupAddSound("ui_menu_popup_message_022", "ui_popup");
 group = SonusGroupGet("ui_popup").SetPitchRange(1,2);
 snd = SonusIndexGetRandom("ui_popup");
+snd = SonusIndexGet("ui_menu_popup_message_02");

@@ -1,9 +1,9 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "SonusHTTP",
-  "isCompatibility": false,
+  "name": "SonusStopAll",
   "isDnD": false,
+  "isCompatibility": false,
   "parent": {
     "name": "General",
     "path": "folders/Sonus/General.yy",

@@ -80,7 +80,7 @@ function __SonusIndexClass(_name, _snd) constructor {
 		}
 		
 		if (_force) {
-			audio_stop_sound(__sndIndex);
+			Stop();
 			__HandleUnload();
 			__isLoaded = false;
 			__currentSoundInsts = 0;
@@ -141,8 +141,8 @@ function __SonusIndexClass(_name, _snd) constructor {
 		return self;
 	}
 	
-	static __IsPlaying = function() {
-		return audio_is_playing(__sndIndex);
+	static IsPlaying = function() {
+		return (audio_exists(__sndIndex) && audio_is_playing(__sndIndex));
 	}
 	
 	static IsAvailable = function() {
