@@ -13,7 +13,7 @@ function SonusIsPlaying(_id) {
 	}
 	
 	if (SonusGroupExists(_id)) {
-		return SonusIsSonusGroup(SonusGroupGet(_id));
+		return __SonusGroupIsPlaying(SonusGroupGet(_id));
 	}
 	
 	return false;

@@ -43,6 +43,7 @@ function __SonusSystem() {
 		while(audio_exists(_i)) {
 			var _name = audio_get_name(_i);
 			var _snd = (audio_get_type(_i) == 1) ? new __SonusIndexStreamClass(_name, _i) : new __SonusIndexMemoryClass(_name, _i);
+			_snd.__isLoaded = true;
 			__SonusAddEntry(_snd)
 			_snd.SetGain(audio_sound_get_gain(_i));
 			var _tags = asset_get_tags(_name, asset_sound);

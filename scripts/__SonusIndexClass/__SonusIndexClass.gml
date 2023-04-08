@@ -142,7 +142,7 @@ function __SonusIndexClass(_name, _snd) constructor {
 	}
 	
 	static IsPlaying = function() {
-		return (audio_exists(__sndIndex) && audio_is_playing(__sndIndex));
+		return (IsAvailable() && audio_is_playing(__sndIndex));
 	}
 	
 	static IsAvailable = function() {

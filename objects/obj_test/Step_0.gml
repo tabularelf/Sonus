@@ -1,7 +1,5 @@
-if (!SonusIsPlaying(group)) {
-	snd.Play();		
-	snd.Unload();
-	snd = SonusIndexGetRandom(group);
+if (!Sonus.ui_popup.IsPlaying()) {
+	Sonus.ui_popup.GetRandomIndex().Play();
 }
 
 if (keyboard_check_released(vk_space)) {

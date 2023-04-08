@@ -1,4 +1,4 @@
-function SonusIndexAdd(_filePath, _preload = false, _async = false) {
+function SonusIndexAdd(_filePath, _group = undefined, _preload = false, _async = false) {
 	static _inst = __SonusSystem();
 	var _name = filename_name(_filePath);
 	_name = string_delete(_name, string_pos(".", _name), 4);
@@ -42,5 +42,12 @@ function SonusIndexAdd(_filePath, _preload = false, _async = false) {
 		_snd.Load();	
 	}
 	__SonusAddEntry(_snd);
+	
+	if (!is_undefined(_group)) {
+		if (!SonusGroupExists(_group)) {
+			SonusGroupAdd(_group);
+		}
+		SonusGroupAddSound(_snd, _group);
+	}
 	return _snd;
 }

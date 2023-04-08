@@ -113,4 +113,12 @@ function __SonusGroupClass(_name) constructor {
 			++_i;
 		}
 	}
+	
+	static GetRandomIndex = function() {
+		if (array_length(__soundsList) == 0) {
+			return undefined;
+		}
+		
+		return __soundsList[irandom(array_length(__soundsList)-1)]	
+	}
 }
