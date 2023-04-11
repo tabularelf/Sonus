@@ -29,23 +29,80 @@ function __SonusIndexClass(_name, _snd) constructor {
 		var _pitch = (is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch) * (!is_undefined(__group) ? 
 		(is_array(__group.__pitch) ? random_range(__group.__pitch[0], __group.__pitch[1]) : __group.__pitch) : 1);
 		
-        var _gain = __gain * (!is_undefined(__group) ? __group.__gain : 1);
-		return __SonusAudioInst(audio_play_sound(__sndIndex, __priority, _loops, _gain, _offset, _pitch, __listenerMask));
+        var _gain = __GetGain();
+		return __SonusAudioInst({
+			sndIndex: __sndIndex,
+			priority: __priority,
+			loops: _loops,
+			gain: _gain,
+			offset: _offset,
+			pitch: _pitch,
+			listenerMask: __listenerMask,
+			type: 0
+		});
     }
 	
-	static PlayAt = function(_x, _y, _z, _offset = 0, _loops = false, _falloffRef = __falloffRef, _falloffMax = __falloffMax, _falloffFactor = __falloffFactor) {
+	static PlayAt = function(_x, _y, _z, _offset = 0, _loops = false, _priority = __priority, _falloffRef = __falloffRef, _falloffMax = __falloffMax, _falloffFactor = __falloffFactor) {
+		if (__isExternal) && (!IsAvailable()) {
+			Load();	
+		}
+		if (!__isReady) return undefined;
+		
+		var _pitch = (is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch) * (!is_undefined(__group) ? 
+		(is_array(__group.__pitch) ? random_range(__group.__pitch[0], __group.__pitch[1]) : __group.__pitch) : 1);
+
+        var _gain = __GetGain();
+		//return __SonusAudioInst(audio_play_sound_at(__sndIndex, _x, _y, _z, _falloffRef, _falloffMax, _falloffFactor, _loops, __priority, _gain, _offset, _pitch, __listenerMask));
+		return __SonusAudioInst({
+			sndIndex: __sndIndex,
+			priority: _priority,
+			loops: _loops,
+			gain: _gain,
+			offset: _offset,
+			pitch: _pitch,
+			listenerMask: __listenerMask,
+			x: _x,
+			y: _y,
+			z: _z,
+			fallOffRef: _falloffRef,
+			fallOffMax: _falloffMax,
+			fallOffFactor: _falloffFactor,
+			type: 1
+		});
+   }
+   
+   static PlayOn = function(_emitter, _offset = 0, _priority = -1, _loops = false) {
 		if (__isExternal) && (!IsAvailable()) {
 			Load();	
 		}
 		
 		if (!__isReady) return undefined;
 		
-		var _pitch = (is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch) * (!is_undefined(__group) ? 
+		/*var _pitch = (is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch) * (!is_undefined(__group) ? 
 		(is_array(__group.__pitch) ? random_range(__group.__pitch[0], __group.__pitch[1]) : __group.__pitch) : 1);
 		
         var _gain = __gain * (!is_undefined(__group) ? __group.__gain : 1);
-		return __SonusAudioInst(audio_play_sound_at(__sndIndex, _x, _y, _z, _falloffRef, _falloffMax, _falloffFactor, _loops, __priority, _gain, _offset, _pitch, __listenerMask));
-    }
+		//return __SonusAudioInst(audio_play_sound_at(__sndIndex, _x, _y, _z, _falloffRef, _falloffMax, _falloffFactor, _loops, __priority, _gain, _offset, _pitch, __listenerMask));*/
+		var _pitch = (is_array(_emitter.__pitch) ? random_range(_emitter.__pitch[0], _emitter.__pitch[1]) : _emitter.__pitch) * (is_array(__pitch) ? random_range(__pitch[0], __pitch[1]) : __pitch) * (!is_undefined(__group) ? 
+		(is_array(__group.__pitch) ? random_range(__group.__pitch[0], __group.__pitch[1]) : __group.__pitch) : 1);
+        var _gain = __GetGain(_emitter.__gain);
+		return __SonusAudioInst({
+			sndIndex: __sndIndex,
+			priority: (_priority != -1 ? _priority : __priority),
+			loops: _loops,
+			gain: _gain,
+			offset: _offset,
+			pitch: _pitch,
+			listenerMask: _emitter.__listenerMask,
+			x: _emitter.__x,
+			y: _emitter.__y,
+			z: _emitter.__z,
+			fallOffRef: _emitter.__fallOffRefDist,
+			fallOffMax: _emitter.__fallOffMaxDist,
+			fallOffFactor: _emitter.__fallOffFactor,
+			type: 1
+		}, self, _emitter);
+   }
 	
 	static GetIndex = function() {
 		if (__isExternal) {
@@ -84,10 +141,11 @@ function __SonusIndexClass(_name, _snd) constructor {
 			__HandleUnload();
 			__isLoaded = false;
 			__currentSoundInsts = 0;
-		} else {
-			var _inst = __SonusSystem();
-			array_push(_inst.__soundsUnloadQueue, self);
-		}
+			return self;
+		} 
+		
+		var _inst = __SonusSystem();
+		array_push(_inst.__soundsUnloadQueue, self);
 		return self;
 	}
 	
@@ -147,6 +205,18 @@ function __SonusIndexClass(_name, _snd) constructor {
 	
 	static IsAvailable = function() {
 		return (__isLoaded) && (__isReady);	
+	}
+	
+	static __GetGain = function(_gain = 1) {
+		var _newGain = _gain * __gain;
+		if (__group != undefined) {
+			var _currentGroup = __group;
+			while(_currentGroup != undefined) {
+				_newGain *= _currentGroup.__gain;
+				_currentGroup = _currentGroup.__parent;
+			}
+		}
+		return _newGain;
 	}
 	
 	static toString = function() {

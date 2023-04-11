@@ -35,7 +35,7 @@ function __SonusIndexMemoryClass(_name, _snd) : __SonusIndexClass(_name, _snd) c
 			}
 		}
 		
-		__sndIndex = __SonusBufferToAudio(__buffer);
+		__sndIndex = __SonusBufferWavToAudio(__buffer);
 		__isReady = true;
 		__isLoaded = true;
 	}

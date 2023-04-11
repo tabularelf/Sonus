@@ -1,4 +1,4 @@
-function __SonusBufferToAudio(_buff) {
+function __SonusBufferWavToAudio(_buff) {
 	var _header = 42;
 	
 	// Set Seek
@@ -6,8 +6,7 @@ function __SonusBufferToAudio(_buff) {
 	
 	// Check RIFF header
 	var _chunkID = buffer_peek(_buff, 0, buffer_u32)
-	if (_chunkID != 0x46464952) {
-		//__audioExtTrace("Invalid chunkID. Is not RIFF!");
+	if (_chunkID != 0x46464952) { // RIFF
 		return -1;
 	}
 	
@@ -40,16 +39,13 @@ function __SonusBufferToAudio(_buff) {
 			}
 			
 			if (is_undefined(_bits_per_sample)) {
-				//__audioExtTrace("Invalid bits per sample. It can only support signed 8 or 16 bit.");
 				return -1;
 			}
 				
-			var _soundID = audio_create_buffer_sound(_buff,_bits_per_sample,_rate,_header+_i, _subchunksize, _channel);
-			return _soundID;
+			return __SonusBufferRawToAudio(_buff, _bits_per_sample, _rate, _header+_i, _subchunksize, _channel);
 		}
 	}
 	
-	// Output error, and we return -1.
-	//__audioExtTrace("Invalid format/signature!");
+	
 	return -1;
 }

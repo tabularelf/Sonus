@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "SonusClearPool",
+  "name": "__SonusBufferRawToAudio",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "General",
-    "path": "folders/Sonus/General.yy",
+    "name": "System",
+    "path": "folders/Sonus/System.yy",
   },
 }

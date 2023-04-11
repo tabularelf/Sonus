@@ -1,6 +1,6 @@
 randomize();
 show_debug_overlay(true);
-snd = SonusIndexAdd("fanfare60.wav", false, true);
+//snd = SonusIndexAdd("fanfare60.wav", false, true);
 
 /*SonusGroupAddSound(snd, "ui_popup");
 snd = SonusIndexAdd("ui_menu_popup_message_04.ogg");
@@ -15,10 +15,11 @@ Sonus.AddIndex([
 	"ui_menu_popup_message_022.wav"
 ], "ui_popup");
 
-Sonus.ui_popup.SetPitchRange(1,2);
-
-snd = Sonus.ui_popup.GetRandomIndex();
+//Sonus.ui_popup.SetPitchRange(.5,1);
 
 
-
-group = Sonus.ui_popup;
+Sonus.ui_popup.SetEffect(0, AudioEffectType.Reverb1, {
+	size: .2,
+	damp: .2,
+	mix: .7
+});

@@ -2,6 +2,7 @@ function __SonusTick() {
 	static _inst = __SonusSystem();
 	var _i = 0;
 	var _queue = _inst.__soundsUnloadQueue;
+	
 	repeat(array_length(_queue)) {
 		var _snd = _queue[_i];
 		if (!_snd.__isLoaded) {
@@ -16,7 +17,7 @@ function __SonusTick() {
 			array_delete(_queue, _i, 1);
 			--_i;
 		}
-		++_i;
+		_i = (_i+1) % _size;
 	}
 	
 	// Handle Async

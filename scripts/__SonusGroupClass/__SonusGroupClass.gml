@@ -7,7 +7,11 @@ function __SonusGroupClass(_name) constructor {
 	__name = _name;
 	__gain = 1;
 	__pitch = 1;
-	
+	__bus = audio_bus_create();
+	__hasEffects = false;
+	__readOnly = false;
+	__parent = undefined;
+
 	static IsPlaying = function() {
 		return __SonusGroupIsPlaying(self);	
 	}
@@ -41,7 +45,7 @@ function __SonusGroupClass(_name) constructor {
 				array_delete(__currentPlayingSoundsList, _i, 1);
 				--_i;
 			} else {
-				__currentPlayingSoundsList[_i].SetGain(_num);
+				__currentPlayingSoundsList[_i].SetGain(__currentPlayingSoundsList[_i].__parent.__GetGain(_num));
 			}
 			++_i;
 		}
@@ -120,5 +124,18 @@ function __SonusGroupClass(_name) constructor {
 		}
 		
 		return __soundsList[irandom(array_length(__soundsList)-1)]	
+	}
+	
+	static SetEffect = function(_pos, _effectType, _params = undefined) {
+		var _effect = (_effectType != undefined) ? audio_effect_create(_effectType, _params != undefined ? _params : {}) : _effectType;
+		__bus.effects[_pos] = _effect;	
+	}
+	
+	static ResetEffects = function() {
+		var _i = 0;
+		repeat(array_length(__bus.effects)) {
+			__bus.effects[_i] = undefined;	
+			++_i;
+		}
 	}
 }

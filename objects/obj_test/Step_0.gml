@@ -3,6 +3,5 @@ if (!Sonus.ui_popup.IsPlaying()) {
 }
 
 if (keyboard_check_released(vk_space)) {
-	audio_stop_all();
-	SonusClearPool();
+	Sonus.ui_popup.ResetEffects();	
 }

@@ -46,7 +46,7 @@ function __SonusContainerClass() constructor {
 		if (argument_count > 1) {
 			var _i = 1;
 			repeat(argument_count) {
-				SonusGroupAddSubGroup(_group, argument[_i]);
+				SonusGroupAddSubGroup(_group.__name, argument[_i]);
 				++_i;
 			}
 		}
@@ -54,13 +54,10 @@ function __SonusContainerClass() constructor {
 	
 	static Get = function(_name) {
 		if (!Exists(_name)) {
-			if (SonusIsSonusIndex(_name) || SonusIsSonusGroup(_name)) {
-				return _name;	
-			}
 			__SonusError("Not a valid name!");
 		}
 
-		return self[$ _name]
+		return self[$ _name];
 	}
 	
 	static GetRandomIndex = function(_group) {
@@ -69,6 +66,23 @@ function __SonusContainerClass() constructor {
 	
 	static Exists = function(_name) {
 		return SonusIndexExists(_name) || SonusGroupExists(_name);
+	}
+	
+	static SetEffect = function(_pos, _effectType, _params = undefined) {
+		var _effect = _effectType != undefined ? audio_effect_create(_effectType, _params != undefined ? _params : {}) : _effectType;
+		audio_bus_main.effects[_pos] = _effect;
+	}
+	
+	static ResetEffects = function() {
+		var _i = 0;
+		repeat(array_length(audio_bus_main.effects)) {
+			audio_bus_main.effects[_i] = undefined;	
+			++_i;
+		}
+	}
+	
+	static SetListenerPos = function(_x, _y, _z, _pos = 0) {
+		audio_listener_set_position(_pos, _x, _y, _z);	
 	}
 	#endregion
 }
