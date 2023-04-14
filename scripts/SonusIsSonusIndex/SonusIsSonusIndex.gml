@@ -1,7 +1,6 @@
 function SonusIsSonusIndex(_struct) {
 	if (is_struct(_struct)) {
-		var _type = instanceof(_struct);
-		return (_type == "__SonusIndexMemoryClass") || (_type == "__SonusIndexStreamClass");	
+		return (is_instanceof(_struct, __SonusIndexClass)) || (is_instanceof(_struct, SonusIsSonusAudioInst));
 	}
 	return false;
 }

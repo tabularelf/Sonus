@@ -3,6 +3,7 @@ function __SonusIndexStreamClass(_name, _snd) : __SonusIndexClass(_name, _snd) c
 	 
 	static __HandleUnload = function() {
 		audio_destroy_stream(__sndIndex);
+		__sndIndex = -1;
 	}
 	
 	static __HandleLoad = function() {

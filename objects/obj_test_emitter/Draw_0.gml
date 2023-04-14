@@ -1,4 +1,4 @@
-draw_text(8, 8, SonusGetPoolCount());
+draw_text(8, 8, Sonus.ui_menu_popup_message_02.GetPitch());
 
 var _xDir = lengthdir_x(512, (current_time / 5000)*360);
 var _yDir = lengthdir_y(256, (current_time / 5000)*360);

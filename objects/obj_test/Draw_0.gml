@@ -1,1 +1,1 @@
-draw_text(8, 8, SonusGetPoolCount());
+draw_text(8, 8, Sonus.GetPoolCount());

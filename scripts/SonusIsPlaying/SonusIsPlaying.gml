@@ -8,8 +8,8 @@ function SonusIsPlaying(_id) {
 	}
 	
 	// Check for string
-	if (SonusIndexExists(_id)) {
-		return __SonusIndexIsPlaying(SonusIndexGet(_id));
+	if (__SonusIndexExists(_id)) {
+		return __SonusIndexIsPlaying(__SonusIndexGet(_id));
 	}
 	
 	if (SonusGroupExists(_id)) {

@@ -16,11 +16,25 @@ function __SonusSystem() {
 			__soundsUnloadQueue: [],
 			__soundsAsyncQueue: [],
 			__soundsHTTPQueue: [],
-			__channelNum: __SONUS_DEFAULT_MAX_CHANNEL_AUDIO_INSTS,
 			__audioEffectsExist: true,
 			__soundsPlayingList: ds_list_create(),
 			__soundsUnusedList: ds_list_create(),
-			__emitterList: ds_list_create()
+			__emitterList: ds_list_create(),
+			__listener: {
+				x: 0,
+				y: 0,
+				z: 0,
+				vx: 0,
+				vy: 0,
+				vz: 0,
+				lookat_x: 0,
+				lookat_y: 0,
+				lookat_z: 1,
+				up_x: 0,
+				up_y: 1,
+				up_z: 0,
+				__soundsPlayingList: ds_list_create()
+			}
 		}
 		
 		try {
@@ -31,7 +45,7 @@ function __SonusSystem() {
 		
 		try {
 		_inst.__timerAsync = time_source_create(time_source_global, 1, time_source_units_frames, __SonusTick, [], -1);
-		_inst.__timerAudioInsts = time_source_create(time_source_global, __SONUS_PLAYING_CLEANUP_TIME, time_source_units_frames, __SonusTickAudioInsts, [], -1);
+		_inst.__timerAudioInsts = time_source_create(time_source_global, 1, time_source_units_frames, __SonusTickAudioInsts, [], -1);
 		
 		time_source_start(_inst.__timerAsync);
 		time_source_start(_inst.__timerAudioInsts);
@@ -52,10 +66,10 @@ function __SonusSystem() {
 				var _tag = _tags[_j];
 				if (string_copy(_tag, 1, 10) == "SonusGroup") {
 					_tag = string_delete(_tag, 1, 11);
-					if (!SonusGroupExists(_tag)) {
-						SonusGroupAdd(_tag);	
+					if (!__SonusGroupExists(_tag)) {
+						__SonusGroupAdd(_tag);	
 					} 
-					SonusGroupAddSound(_snd, _tag);
+					__SonusGroupAddSound(_snd, _tag);
 				}
 				++_j;
 			}
@@ -63,9 +77,7 @@ function __SonusSystem() {
 			++_i;
 		}
 		
-		if (__SONUS_AUTO_PREFILL_POOL) {
-			SonusPrefillPool(__SONUS_AUTO_PREFILL_POOL_VALUE);	
-		}
+		__SonusPrefillPool(128);
 	}
 	return _inst;
 }

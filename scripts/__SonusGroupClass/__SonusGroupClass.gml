@@ -3,7 +3,7 @@ function __SonusGroupClass(_name) constructor {
 	__soundsMap = {};
 	__soundsList = [];
 	__subGroupList = [];
-	__currentPlayingSoundsList = [];
+	__currentPlayingSoundsList = ds_list_create();
 	__name = _name;
 	__gain = 1;
 	__pitch = 1;
@@ -11,6 +11,10 @@ function __SonusGroupClass(_name) constructor {
 	__hasEffects = false;
 	__readOnly = false;
 	__parent = undefined;
+	
+	static GetPlayCount = function() {
+		return ds_list_size(__currentPlayingSoundsList);	
+	}
 
 	static IsPlaying = function() {
 		return __SonusGroupIsPlaying(self);	
@@ -32,66 +36,81 @@ function __SonusGroupClass(_name) constructor {
 	}
 	
 	static SetGain = function(_num) {
+		if (__gain == _num) return self;
 		__gain = _num;
 		var _i = 0;
 		repeat(array_length(__subGroupList)) {
-			__subGroupList[_i].SetGain(_num);
+			__subGroupList[_i].__UpdatePlayingGain(_num);
 			++_i;
 		}
 		
-		_i = 0;
-		repeat(array_length(__currentPlayingSoundsList)) {
-			if (!audio_is_playing(__currentPlayingSoundsList[_i].__sndIndex)) {
-				array_delete(__currentPlayingSoundsList, _i, 1);
-				--_i;
-			} else {
-				__currentPlayingSoundsList[_i].SetGain(__currentPlayingSoundsList[_i].__parent.__GetGain(_num));
-			}
-			++_i;
-		}
+		__UpdatePlayingGain(_num);
 		return self;	
 	}
 	
 	static SetPitch = function(_num) {
+		if (__pitch == _num) return self;
 		__pitch = _num;
 		var _i = 0;
 		repeat(array_length(__subGroupList)) {
-			__subGroupList[_i].SetPitch(_num);
+			__subGroupList[_i].__UpdatePlayingPitch(_num);
 			++_i;
 		}
 		
-		_i = 0;
-		repeat(array_length(__currentPlayingSoundsList)) {
-			if (!audio_is_playing(__currentPlayingSoundsList[_i].__sndIndex)) {
-				array_delete(__currentPlayingSoundsList, _i, 1);
-				--_i;
-			} else {
-				__currentPlayingSoundsList[_i].SetPitch(_num);
-			}
-			++_i;
-		}
+		__UpdatePlayingPitch(_num);
 		return self;	
 	}
 	
 	static SetPitchRange = function(_min, _max) {
+		if (is_array(__pitch) && __pitch[0] == _min && __pitch[1] == _max) return self;
 		__pitch = [_min, _max];
 		var _i = 0;
 		repeat(array_length(__subGroupList)) {
-			__subGroupList[_i].SetPitchRange(_min, _max);
+			__subGroupList[_i].__UpdatePlayingPitchArray(_min, _max);
 			++_i;
 		}
 		
-		_i = 0;
-		repeat(array_length(__currentPlayingSoundsList)) {
-			if (!audio_is_playing(__currentPlayingSoundsList[_i].__sndIndex)) {
-				array_delete(__currentPlayingSoundsList, _i, 1);
+		__UpdatePlayingPitchArray(_min, _max);
+		return self;	
+	}
+	
+	static __UpdatePlayingPitch = function(_num) {
+		var _i = 0;
+		repeat(ds_list_size(__currentPlayingSoundsList)) {
+			if (!audio_is_playing(__currentPlayingSoundsList[| _i].__sndIndex)) {
+				ds_list_delete(__currentPlayingSoundsList, _i);
 				--_i;
 			} else {
-				__currentPlayingSoundsList[_i].SetPitchRange(_min, _max);
+				__currentPlayingSoundsList[| _i].SetPitch(_num);
 			}
 			++_i;
-		}
-		return self;	
+		}	
+	}
+	
+	static __UpdatePlayingPitchArray = function(_min, _max) {
+		var _i = 0;
+		repeat(ds_list_size(__currentPlayingSoundsList)) {
+			if (!audio_is_playing(__currentPlayingSoundsList[| _i].__sndIndex)) {
+				ds_list_delete(__currentPlayingSoundsList, _i);
+				--_i;
+			} else {
+				__currentPlayingSoundsList[| _i].SetPitchArray(_min, _max);
+			}
+			++_i;
+		}	
+	}
+	
+	static __UpdatePlayingGain = function(_num) {
+		var _i = 0;
+		repeat(ds_list_size(__currentPlayingSoundsList)) {
+			if (!audio_is_playing(__currentPlayingSoundsList[| _i].__sndIndex)) {
+				ds_list_delete(__currentPlayingSoundsList, _i);
+				--_i;
+			} else {
+				__currentPlayingSoundsList[| _i].SetGain(_num);
+			}
+			++_i;
+		}	
 	}
 	
 	static AddEntry = function(_snd) {
@@ -129,12 +148,27 @@ function __SonusGroupClass(_name) constructor {
 	static SetEffect = function(_pos, _effectType, _params = undefined) {
 		var _effect = (_effectType != undefined) ? audio_effect_create(_effectType, _params != undefined ? _params : {}) : _effectType;
 		__bus.effects[_pos] = _effect;	
+		var _i = 0;
+		repeat(ds_list_size(__currentPlayingSoundsList)) {
+			__currentPlayingSoundsList[| _i].__ApplyEffectBus(__currentPlayingSoundsList[| _i].__parent, self);
+			++_i;
+		}
+	}
+	
+	static GetEffect = function(_pos) {
+		return __bus.effects[_pos];	
 	}
 	
 	static ResetEffects = function() {
 		var _i = 0;
 		repeat(array_length(__bus.effects)) {
 			__bus.effects[_i] = undefined;	
+			++_i;
+		}
+		
+		_i = 0;
+		repeat(ds_list_size(__currentPlayingSoundsList)) {
+			__currentPlayingSoundsList[| _i].__ApplyEffectBus(__currentPlayingSoundsList[| _i].__parent, __currentPlayingSoundsList[| _i].__parentEmitter);
 			++_i;
 		}
 	}

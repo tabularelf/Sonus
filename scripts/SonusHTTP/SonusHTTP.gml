@@ -12,6 +12,7 @@ function SonusHTTP() {
 			if (_status == 0)  {
 				if (_httpCode == 200) {
 					_entry.__snd.__isReady = true;
+					_entry.__snd.__isHTTPLoading = false;
 				} else {
 					__SonusTrace("File download failed from " + _entry.__snd.__filePath + ". Got HTTP Status Code " + string(_httpCode));	
 					file_delete(_entry.__snd.__filePath);

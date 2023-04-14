@@ -11,6 +11,7 @@ function __SonusIndexMemoryClass(_name, _snd) : __SonusIndexClass(_name, _snd) c
 		
 		audio_free_buffer_sound(__sndIndex);
 		buffer_delete(__buffer);
+		__sndIndex = -1;
 	}
 	
 	static __HandleLoad = function() {
@@ -45,7 +46,7 @@ function __SonusIndexMemoryClass(_name, _snd) : __SonusIndexClass(_name, _snd) c
 		buffer_copy(_buff, 0, buffer_get_size(_buff), __buffer, 0);
 		buffer_delete(_buff);
 		
-		if (__SONUS_AUTO_COMPRESS_WAV) && (buffer_get_size(__buffer) > __SONUS_AUTO_COMPRESS_SIZE) {
+		if (__config.autoCompressWav) && (buffer_get_size(__buffer) > __config.autoCompressSize) {
 			__compression = true;	
 		}	
 	}

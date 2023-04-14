@@ -1,7 +1,14 @@
 function __SonusTick() {
 	static _inst = __SonusSystem();
+	static _config = __SonusContainer().Config;
+	static _cachedMaxChannelAudioInsts = _config.maxChannelAudioInsts;
 	var _i = 0;
 	var _queue = _inst.__soundsUnloadQueue;
+	
+	if (_config.maxChannelAudioInsts != _cachedMaxChannelAudioInsts) {
+		_cachedMaxChannelAudioInsts = _config.maxChannelAudioInsts;
+		audio_channel_num(_cachedMaxChannelAudioInsts);
+	}
 	
 	repeat(array_length(_queue)) {
 		var _snd = _queue[_i];
@@ -17,7 +24,7 @@ function __SonusTick() {
 			array_delete(_queue, _i, 1);
 			--_i;
 		}
-		_i = (_i+1) % _size;
+		++_i;
 	}
 	
 	// Handle Async
@@ -27,33 +34,39 @@ function __SonusTick() {
 		var _entry = _queue[_i];
 		if (buffer_get_size(_entry.__buffer) > 1) {
 			_entry.__snd.__HandleWav(_entry.__buffer);
-			_entry.__snd.__sndIndex = __SonusBufferToAudio(_entry.__snd.__buffer);
+			_entry.__snd.__sndIndex = __SonusBufferWavToAudio(_entry.__snd.__buffer);
 			_entry.__snd.__isReady = true;
 			_entry.__snd.__isLoaded = true;
+			_entry.__snd.__isLoading = false;
 			array_delete(_queue, _i, 1);
 			--_i;
-		} else {
+		} else if (!_entry.__snd.__asyncByHTTP) {
 			__SonusError("File wasn't loaded!", true);
 			array_delete(_queue, _i, 1);
 			buffer_delete(_entry._snd.__buffer);
 			--_i;
 		}	
+		++_i;
 	}
 	
 	// Handle garbage collection
 	
 	// Emitter
-	_i = 0;
+	static _j = 0;
 	_queue = _inst.__emitterList;
-	repeat(ds_list_size(_queue)) {
-		var _emitter = _queue[| _i];
+	var _maxTime = get_timer() + 50;
+	var _size = ds_list_size(_queue);
+	_j = _j % _size;
+	repeat(_size) {
+		var _emitter = _queue[| _j];
 		if (!weak_ref_alive(_emitter[0])) {
-			if (audio_emitter_exists(_emitter[1])) {
-				audio_emitter_free(_emitter[1]);
+			if (ds_exists(_emitter[1], ds_type_list)) {
+				ds_list_destroy(_emitter[1]);
 			}
-			ds_list_delete(_queue, _i);
-			--_i;
+			ds_list_delete(_queue, _j);
+			--_size;
 		}
-		++_i;
+		_j = (_j + 1) % _size;
+		if (get_timer() > _maxTime) break;
 	}
 }

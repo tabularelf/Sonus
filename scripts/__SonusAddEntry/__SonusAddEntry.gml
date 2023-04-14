@@ -3,11 +3,11 @@ function __SonusAddEntry(_entry){
 	static _container = __SonusContainer();
 	var _name = _entry.__name;
 	
-	if (SonusIndexExists(_name)) {
+	if (__SonusIndexExists(_name)) {
 		__SonusError("Name alredy exists!");	
 	}
 	
-	if (SonusGroupExists(_name)) {
+	if (__SonusGroupExists(_name)) {
 		__SonusError("Name already exists!");	
 	}
 	
