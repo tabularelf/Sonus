@@ -104,6 +104,16 @@ function __SonusEmitterClass(_x, _y, _z, _fallOffRefDist, _fallOffMaxDist, _fall
 		}
 	}
 	
+	static ApplyEffect = function(_pos, _effect) {
+		if (__bus == undefined) __bus = audio_bus_create();
+		__bus.effects[_pos] = _effect;	
+		var _i = 0;
+		repeat(ds_list_size(__currentPlayingSoundsList)) {
+			__audioInstList[| _i].__ApplyEffectBus(__currentPlayingSoundsList[| _i].__parent, self);
+			++_i;
+		}		
+	}
+	
 	static GetEffect = function(_pos) {
 		return __bus != undefined ? __bus.effects[_pos] : undefined;
 	}

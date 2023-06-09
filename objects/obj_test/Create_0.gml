@@ -17,7 +17,6 @@ Sonus.AddIndex([
 
 //Sonus.ui_popup.SetPitchRange(.5,1);
 
-
 Sonus.ui_popup.SetEffect(0, AudioEffectType.Reverb1, {
 	size: .2,
 	damp: .2,

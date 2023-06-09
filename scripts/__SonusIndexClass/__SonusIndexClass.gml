@@ -118,7 +118,7 @@ function __SonusIndexClass(_name, _snd) constructor {
 	}
 		
 	static GetLength = function() {
-		return audio_sound_length(__sndIndex);	
+		return __isLoaded ? audio_sound_length(__sndIndex) : 0;	
 	}
 	
 	static IsLoaded = function() {

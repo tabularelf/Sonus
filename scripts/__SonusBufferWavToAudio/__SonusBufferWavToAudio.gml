@@ -41,7 +41,7 @@ function __SonusBufferWavToAudio(_buff) {
 			if (is_undefined(_bits_per_sample)) {
 				return -1;
 			}
-				
+
 			return __SonusBufferRawToAudio(_buff, _bits_per_sample, _rate, _header+_i, _subchunksize, _channel);
 		}
 	}

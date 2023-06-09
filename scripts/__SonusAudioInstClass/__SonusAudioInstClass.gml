@@ -124,6 +124,12 @@ function __SonusAudioInstClass(_snd, _index, _otherEmitter = undefined) construc
 		return self;
 	}
 	
+	static SetPitchArray = function(_min, _max) {
+		__pitch = mean(_min, _max);
+		audio_sound_pitch(__sndIndex, __pitch);
+		return self;
+	}
+	
 	static GetLength = function() {
 		return __length;	
 	}

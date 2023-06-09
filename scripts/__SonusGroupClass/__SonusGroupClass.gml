@@ -146,13 +146,23 @@ function __SonusGroupClass(_name) constructor {
 	}
 	
 	static SetEffect = function(_pos, _effectType, _params = undefined) {
-		var _effect = (_effectType != undefined) ? audio_effect_create(_effectType, _params != undefined ? _params : {}) : _effectType;
+		static _emptyParams = {};
+		var _effect = (_effectType != undefined) ? audio_effect_create(_effectType, _params != undefined ? _params : _emptyParams) : _effectType;
 		__bus.effects[_pos] = _effect;	
 		var _i = 0;
 		repeat(ds_list_size(__currentPlayingSoundsList)) {
 			__currentPlayingSoundsList[| _i].__ApplyEffectBus(__currentPlayingSoundsList[| _i].__parent, self);
 			++_i;
 		}
+	}
+	
+	static ApplyEffect = function(_pos, _effect) {
+		__bus.effects[_pos] = _effect;	
+		var _i = 0;
+		repeat(ds_list_size(__currentPlayingSoundsList)) {
+			__currentPlayingSoundsList[| _i].__ApplyEffectBus(__currentPlayingSoundsList[| _i].__parent, self);
+			++_i;
+		}		
 	}
 	
 	static GetEffect = function(_pos) {

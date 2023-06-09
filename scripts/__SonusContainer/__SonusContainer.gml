@@ -79,11 +79,12 @@ function __SonusContainerClass() constructor {
 		}
 	}
 	
-	static SetListenerPos = function(_x, _y, _z, _pos = 0) {
+	static SetListenerPosition = function(_x, _y, _z, _pos = 0) {
 		static _listener = __system.__listener;
 		if (_listener.x == _x) &&
 		   (_listener.y == _y) &&
 		   (_listener.z == _z) return self;
+		   
 		_listener.x = _x;
 		_listener.y = _y;
 		_listener.z = _z;
@@ -97,6 +98,12 @@ function __SonusContainerClass() constructor {
 		}
 		return self;
 	}
+	
+	static SetListenerOrientation = function(_lx, _ly, _lz, _upx, _upy, _upz, _pos = 0) {
+		audio_listener_set_orientation(_pos, _lx, _ly, _lz, _upx, _upy, _upz);	
+		return self;
+	}
+	
 	
 	static GetPoolCount = function() {
 		return [ds_list_size(__system.__soundsPlayingList), ds_list_size(__system.__soundsUnusedList)];	

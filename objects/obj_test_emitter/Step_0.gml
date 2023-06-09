@@ -3,7 +3,7 @@ if (!Sonus.ui_menu_popup_message_02.IsPlaying()) {
 }
 
 if (keyboard_check_released(vk_space)) {
-	//Sonus.Config.maxChannelAudioInsts = 1;
+	emitter.ResetEffects();
 }
 
 var _xDir = lengthdir_x(-512, (current_time / 5000)*360);
