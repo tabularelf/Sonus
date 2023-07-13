@@ -15,6 +15,15 @@ function __SonusGroupClass(_name) constructor {
 	static GetPlayCount = function() {
 		return ds_list_size(__currentPlayingSoundsList);	
 	}
+		
+	static SetMaxPlays = function(_num) {
+		var _i = 0;
+		repeat(array_length(__soundsList)) {
+			__soundsList[_i].SetMaxPlays(_num);
+			++_i;
+		}
+		return self;
+	}
 
 	static IsPlaying = function() {
 		return __SonusGroupIsPlaying(self);	
@@ -72,45 +81,6 @@ function __SonusGroupClass(_name) constructor {
 		
 		__UpdatePlayingPitchArray(_min, _max);
 		return self;	
-	}
-	
-	static __UpdatePlayingPitch = function(_num) {
-		var _i = 0;
-		repeat(ds_list_size(__currentPlayingSoundsList)) {
-			if (!audio_is_playing(__currentPlayingSoundsList[| _i].__sndIndex)) {
-				ds_list_delete(__currentPlayingSoundsList, _i);
-				--_i;
-			} else {
-				__currentPlayingSoundsList[| _i].SetPitch(_num);
-			}
-			++_i;
-		}	
-	}
-	
-	static __UpdatePlayingPitchArray = function(_min, _max) {
-		var _i = 0;
-		repeat(ds_list_size(__currentPlayingSoundsList)) {
-			if (!audio_is_playing(__currentPlayingSoundsList[| _i].__sndIndex)) {
-				ds_list_delete(__currentPlayingSoundsList, _i);
-				--_i;
-			} else {
-				__currentPlayingSoundsList[| _i].SetPitchArray(_min, _max);
-			}
-			++_i;
-		}	
-	}
-	
-	static __UpdatePlayingGain = function(_num) {
-		var _i = 0;
-		repeat(ds_list_size(__currentPlayingSoundsList)) {
-			if (!audio_is_playing(__currentPlayingSoundsList[| _i].__sndIndex)) {
-				ds_list_delete(__currentPlayingSoundsList, _i);
-				--_i;
-			} else {
-				__currentPlayingSoundsList[| _i].SetGain(_num);
-			}
-			++_i;
-		}	
 	}
 	
 	static AddEntry = function(_snd) {
@@ -181,5 +151,44 @@ function __SonusGroupClass(_name) constructor {
 			__currentPlayingSoundsList[| _i].__ApplyEffectBus(__currentPlayingSoundsList[| _i].__parent, __currentPlayingSoundsList[| _i].__parentEmitter);
 			++_i;
 		}
+	}
+		
+	static __UpdatePlayingPitch = function(_num) {
+		var _i = 0;
+		repeat(ds_list_size(__currentPlayingSoundsList)) {
+			if (!audio_is_playing(__currentPlayingSoundsList[| _i].__sndIndex)) {
+				ds_list_delete(__currentPlayingSoundsList, _i);
+				--_i;
+			} else {
+				__currentPlayingSoundsList[| _i].SetPitch(_num);
+			}
+			++_i;
+		}	
+	}
+	
+	static __UpdatePlayingPitchArray = function(_min, _max) {
+		var _i = 0;
+		repeat(ds_list_size(__currentPlayingSoundsList)) {
+			if (!audio_is_playing(__currentPlayingSoundsList[| _i].__sndIndex)) {
+				ds_list_delete(__currentPlayingSoundsList, _i);
+				--_i;
+			} else {
+				__currentPlayingSoundsList[| _i].SetPitchArray(_min, _max);
+			}
+			++_i;
+		}	
+	}
+	
+	static __UpdatePlayingGain = function(_num) {
+		var _i = 0;
+		repeat(ds_list_size(__currentPlayingSoundsList)) {
+			if (!audio_is_playing(__currentPlayingSoundsList[| _i].__sndIndex)) {
+				ds_list_delete(__currentPlayingSoundsList, _i);
+				--_i;
+			} else {
+				__currentPlayingSoundsList[| _i].SetGain(_num);
+			}
+			++_i;
+		}	
 	}
 }

@@ -56,17 +56,19 @@ function __SonusTick() {
 	_queue = _inst.__emitterList;
 	var _maxTime = get_timer() + 50;
 	var _size = ds_list_size(_queue);
-	_j = _j % _size;
-	repeat(_size) {
-		var _emitter = _queue[| _j];
-		if (!weak_ref_alive(_emitter[0])) {
-			if (ds_exists(_emitter[1], ds_type_list)) {
-				ds_list_destroy(_emitter[1]);
+	if (_size != 0) {
+		_j = _j % _size;
+		repeat(_size) {
+			var _emitter = _queue[| _j];
+			if (!weak_ref_alive(_emitter[0])) {
+				if (ds_exists(_emitter[1], ds_type_list)) {
+					ds_list_destroy(_emitter[1]);
+				}
+				ds_list_delete(_queue, _j);
+				--_size;
 			}
-			ds_list_delete(_queue, _j);
-			--_size;
+			_j = (_j + 1) % _size;
+			if (get_timer() > _maxTime) break;
 		}
-		_j = (_j + 1) % _size;
-		if (get_timer() > _maxTime) break;
 	}
 }
