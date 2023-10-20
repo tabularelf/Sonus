@@ -1,8 +1,8 @@
 //if (!Sonus.ui_menu_popup_message_02.IsPlaying()) {
 	Sonus.ui_menu_popup_message_02.PlayOn(emitter);
 //}
-
-if (keyboard_check_released(vk_space)) {
+ 
+if (keyboard_check_released(vk_space) == true) {
 	emitter.ResetEffects();
 }
 

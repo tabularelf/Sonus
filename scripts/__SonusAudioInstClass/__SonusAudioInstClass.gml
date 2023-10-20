@@ -118,6 +118,10 @@ function __SonusAudioInstClass(_snd, _index, _otherEmitter = undefined) construc
 		return self;
 	}
 	
+	static GetGain = function() {
+		return __gain;	
+	}
+	
 	static SetPitch = function(_num) {
 		__pitch = _num;
 		audio_sound_pitch(__sndIndex, _num);

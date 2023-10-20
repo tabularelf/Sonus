@@ -30,6 +30,7 @@ function __SonusContainerClass() constructor {
 	
 	static AddGroup = function(_groupName) {
 		var _group = __SonusGroupAdd(_groupName);
+		if (__SONUS_DEFAULT_AUDIO_GROUP_NAME != _groupName) __SonusGroupAddSubGroup(__SONUS_DEFAULT_AUDIO_GROUP_NAME, _groupName);
 		
 		if (argument_count > 1) {
 			var _i = 1;
@@ -113,7 +114,8 @@ function __SonusContainerClass() constructor {
 		autoCompressWav: true,
 		autoCompressSize: 2097152,
 		playingMaxCleanupTime: 10000,
-		maxChannelAudioInsts: 128
+		maxChannelAudioInsts: 128,
+		preventPlayingOnMute: false,
 	}
 	#endregion
 }

@@ -8,6 +8,9 @@ Sonus.AddIndex([
 	"Fanfare60.wav"
 ], "ui_popup");
 
+
+Sonus.ui_popup.SetMaxPlays(1);
+
 Sonus.ui_popup.SetPitchRange(.5, 1);
 Sonus.Master.SetPitchRange(.9, 1);
 //Sonus.ui_popup.SetGain(.5);
